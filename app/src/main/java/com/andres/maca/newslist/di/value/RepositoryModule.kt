@@ -63,6 +63,7 @@ object RepositoryModule {
             //code to get the correct data, because the API is a mess with keys ie. story_id and objectID and object_id
             //the id can come in any one of these...
             //Anyways I test it with around 10000 register and the cases are covered by sunday 22 /11/2020
+            System.out.println(data.toString())
             var storyId: Int? =null
             when {
                 data.storyId != null -> {

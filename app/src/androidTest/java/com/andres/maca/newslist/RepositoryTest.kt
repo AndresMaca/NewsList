@@ -4,12 +4,10 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.andres.maca.newslist.datalayer.AppRepository
 import com.andres.maca.newslist.datalayer.NewsRepository
 import com.andres.maca.newslist.datalayer.OnNewNews
-import com.andres.maca.newslist.datalayer.model.DeletedNews
-import com.andres.maca.newslist.datalayer.model.NewsDatabase
-import com.andres.maca.newslist.datalayer.model.NewsItem
-import com.andres.maca.newslist.datalayer.model.NewsItemList
+import com.andres.maca.newslist.datalayer.model.*
 import com.andres.maca.newslist.datalayer.network.ApiCloud
 import com.andres.maca.newslist.di.value.RepositoryModule
 import junit.framework.Assert.*
@@ -135,8 +133,20 @@ class RepositoryTest{
         var server = RepositoryModule.provideHackerNewsAPI(RepositoryModule.provideRetrofitInterface())
         var news = server.getNews().newNews
         assertTrue(news.isNotEmpty())
-
     }
 
+    @Test
+    fun providesDatabaseTest(){
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val database =RepositoryModule.providesDatabase(context)
+        assertTrue(database is NewsDatabase)
+    }
+    @Test
+    fun providesDaoTest(){
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val database =RepositoryModule.providesDatabase(context)
+        val dao = RepositoryModule.providesDatabaseDao(database)
+        assertTrue(dao is NewsDatabaseDao)
+    }
 
 }

@@ -1,14 +1,11 @@
 package com.andres.maca.newslist.datalayer.model
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 interface NewsDatabaseDao{
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(newsItem: NewsItem)
     @Insert
     fun insert(deletedNews: DeletedNews)

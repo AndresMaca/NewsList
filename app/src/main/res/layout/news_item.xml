@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+    <!---
+It could be done with *any layout but linear layout outperforms this "brand new" layouts in this simple case
+scenarios by far!
+-->
+    <TextView
+        android:id="@+id/story_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="We have spent several decades driving software testing initiatives in various very large software companies"
+        style="@style/news_header_style" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:paddingEnd="2dp"
+            android:id="@+id/author"
+            tools:text="bsprings"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            tools:text="-"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/created_at"
+            android:paddingStart="2dp"
+            tools:text="2h"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+
+</LinearLayout>
