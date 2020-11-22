@@ -12,11 +12,11 @@ abstract class NewsDatabase: RoomDatabase(){
     abstract val newsDatabaseDao: NewsDatabaseDao
 
     companion object{
-        @Volatile
+        @Volatile //The variable will never be cached, avoid muliple access so integrity and diff errors
         private var INSTANCE: NewsDatabase? = null
         fun getInstance(context: Context): NewsDatabase{
-            synchronized(this){
-                var instance = INSTANCE;
+            synchronized(this){ //Only Thread a time
+                var instance = INSTANCE
                 if(instance == null){
                     instance = Room.databaseBuilder(context.applicationContext, NewsDatabase::class.java, "hacker_news_database").build()
                 }

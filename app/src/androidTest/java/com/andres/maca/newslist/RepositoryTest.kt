@@ -10,6 +10,7 @@ import com.andres.maca.newslist.datalayer.model.DeletedNews
 import com.andres.maca.newslist.datalayer.model.NewsDatabase
 import com.andres.maca.newslist.datalayer.model.NewsItem
 import com.andres.maca.newslist.datalayer.network.ApiCloud
+import com.andres.maca.newslist.di.value.RepositoryModule
 import junit.framework.Assert.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -125,6 +126,14 @@ class RepositoryTest{
         if(localStoryIDs.contains(deleteNew.storyId)){
             fail()
         }
+
+    }
+
+    @Test
+    fun networkTest() = runBlocking{
+        var server = RepositoryModule.provideHackerNewsAPI(RepositoryModule.provideRetrofitInterface())
+        var news = server.getNews()
+        assertTrue(news.isNotEmpty())
 
     }
 
