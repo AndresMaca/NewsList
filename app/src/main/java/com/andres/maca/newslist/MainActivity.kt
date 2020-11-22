@@ -10,3 +10,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 }
+
+
+//StoryTitle/Title
+
+//Author/CreatedAt.
+
+//Story_URL
+
+//Deleted_URL.
