@@ -9,6 +9,7 @@ import com.andres.maca.newslist.datalayer.OnNewNews
 import com.andres.maca.newslist.datalayer.model.DeletedNews
 import com.andres.maca.newslist.datalayer.model.NewsDatabase
 import com.andres.maca.newslist.datalayer.model.NewsItem
+import com.andres.maca.newslist.datalayer.model.NewsItemList
 import com.andres.maca.newslist.datalayer.network.ApiCloud
 import com.andres.maca.newslist.di.value.RepositoryModule
 import junit.framework.Assert.*
@@ -33,17 +34,17 @@ class RepositoryTest{
     @Before
     fun createRepo(){
         val hackerNewsServer = object : ApiCloud {
-            override suspend fun getNews(): List<NewsItem>  =
+            override suspend fun getNews(): NewsItemList =
                 withContext(Dispatchers.IO) {
                     var news = ArrayList<NewsItem>()
                     for (i in 1..10) {
                         news.add(
                             NewsItem(123 + i, "title" + i, "author" + i, "url" + i,
-                            Date()
+                            i.toLong()
                         )
                         )
                     }
-                    news
+                    NewsItemList(news)
                 }
         }
         val context = InstrumentationRegistry.getInstrumentation().targetContext
@@ -132,7 +133,7 @@ class RepositoryTest{
     @Test
     fun networkTest() = runBlocking{
         var server = RepositoryModule.provideHackerNewsAPI(RepositoryModule.provideRetrofitInterface())
-        var news = server.getNews()
+        var news = server.getNews().newNews
         assertTrue(news.isNotEmpty())
 
     }

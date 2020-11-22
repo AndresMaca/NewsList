@@ -12,7 +12,7 @@ data class NewsItem (@PrimaryKey(autoGenerate = false) @Json(name = "story_id") 
                      @ColumnInfo(name = "story_title") @Json(name = "story_title") var storyTitle: String,
                      @ColumnInfo(name = "author") @Json(name="author") var author: String,
                      @ColumnInfo(name = "story_url") @Json(name = "story_url") var storyURL: String,
-                     @ColumnInfo(name = "created_at") @Json(name = "created_at") var createdAt: Date
+                     @ColumnInfo(name = "created_at") @Json(name = "created_at") var createdAt: Long
 ){
     override fun equals(other: Any?): Boolean {
         return if (other is NewsItem){

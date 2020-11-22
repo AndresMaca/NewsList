@@ -59,7 +59,7 @@ class NewsRepository @Inject constructor(val apiCloud: ApiCloud, val database: N
                 //this it's faster to make a Database Replace All approach.
                 try {
                     val onlineNews = apiCloud.getNews()
-                    for (onlineNew: NewsItem in onlineNews){
+                    for (onlineNew: NewsItem in onlineNews.newNews){
                         if(!localStoryIDs.contains(onlineNew.storyId) && !deletedStoriesIDs.contains(onlineNew.storyId)){
                             database.insert(onlineNew)
                         }
