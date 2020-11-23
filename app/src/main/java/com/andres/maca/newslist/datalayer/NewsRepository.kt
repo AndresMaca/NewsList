@@ -43,10 +43,10 @@ class NewsRepository @Inject constructor(val apiCloud: ApiCloud, val database: N
     fun updateNews(){
 
         scope.launch {
-            withContext(Dispatchers.IO){ //Ok this is a O(n) algo to check if a item exists locally or not.
+            withContext(Dispatchers.IO){ //Ok this is an O(n) algo to check if a item exists locally or not.
                 //this it's faster to make a Database Replace All approach.
-                val localNews = newsItems.value
-                val deletedNews = deletedNews.value
+                val localNews = database.loadNewsItemsSync()
+                val deletedNews = database.getAllDeletedNewsSync();
                 if (deletedNews != null) {
                     for (item: DeletedNews in deletedNews){
                         deletedStoriesIDs.add(item.storyId)

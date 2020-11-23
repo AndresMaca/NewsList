@@ -1,7 +1,10 @@
 package com.andres.maca.newslist.datalayer.model
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 
 @Dao
 interface NewsDatabaseDao{
@@ -21,5 +24,12 @@ interface NewsDatabaseDao{
 
     @Query("SELECT * FROM deleted_hacker_news_table")
     fun getAllDeletedNews(): LiveData<List<DeletedNews>>
+
+    @Query("SELECT * FROM deleted_hacker_news_table")
+    fun getAllDeletedNewsSync(): List<DeletedNews>
+
+    @Query("SELECT * FROM hacker_news_table")
+    fun loadNewsItemsSync(): List<NewsItem>?
+
 
 }
