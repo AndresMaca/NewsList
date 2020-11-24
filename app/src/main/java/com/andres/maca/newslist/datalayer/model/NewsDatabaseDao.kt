@@ -16,7 +16,7 @@ interface NewsDatabaseDao{
     //It's possible to make a query who got all the news except the ones that are on DeletedNews
     // table in order to not  delete the new from hackerNewsTable and perform 2 queries but I think
     // it's better to keep the hacker_news_table clean without the deltedNews items.
-    @Query("SELECT * FROM hacker_news_table ORDER BY created_at")
+    @Query("SELECT * FROM hacker_news_table ORDER BY created_at DESC")
     fun getAllNews(): LiveData<List<NewsItem>>
 
     @Query("DELETE FROM hacker_news_table WHERE storyId = :storyId")

@@ -2,13 +2,11 @@ package com.andres.maca.newslist.di.value
 
 import android.content.Context
 import com.andres.maca.newslist.datalayer.model.NewsDatabase
-import com.andres.maca.newslist.datalayer.model.NewsDatabaseDao
 import com.andres.maca.newslist.datalayer.model.NewsItem
 import com.andres.maca.newslist.datalayer.network.ApiCloud
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Json
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.ToJson
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -16,6 +14,9 @@ import dagger.Reusable
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.*
 
 @Module
@@ -94,8 +95,13 @@ object RepositoryModule {
                     storyTitle = data.title!!
                 }
             }
-            var createdAt = if( data.createdAt.length>20) 1.toLong() else 2.toLong()
-            return NewsItem(storyId!!,storyTitle,author,storyUrl,createdAt)
+            //System.out.println(data.toString())
+            val format = SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US
+            )
+            format.timeZone = TimeZone.getTimeZone("UTC")
+            val date:Date = format.parse(data.createdAt)
+            return NewsItem(storyId!!,storyTitle,author,storyUrl, date.time)
         }
 
 
