@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config>
+        <domain includeSubdomains="true">hn.algolia.com</domain>
+        <pin-set>
+            <pin digest="SHA-256">Sm9Q2cxwBh/KNO1oi4B61orAJxw2r5u2xbv3tRZ35Yk=</pin>
+            <!-- backup pin -->
+            <pin digest="SHA-256">xIH1iShE5pYHSh5av6EiipFOo8FsYdf92lvBd9z/rNc=</pin>
+            <pin digest="SHA-256">FEzVOUp4dF3gI0ZVPRJhFbSJVXR+uQmMH65xhs1glH4=</pin>
+        </pin-set>
+    </domain-config>
+</network-security-config>
