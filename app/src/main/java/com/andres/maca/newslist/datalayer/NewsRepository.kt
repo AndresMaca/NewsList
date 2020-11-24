@@ -65,7 +65,7 @@ class NewsRepository @Inject constructor(val apiCloud: ApiCloud, val database: N
                             database.insert(onlineNew)
                         }
                     }
-                    notifyNewsListener(true, "News Updated")
+                    notifyNewsListener(true, "")
                 }catch (e:Exception){
                     notifyNewsListener(false, "Network Troubles ⛈😧")
                     //Not network Exception

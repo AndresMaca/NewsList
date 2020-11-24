@@ -16,6 +16,7 @@ class NewsListViewModel @Inject constructor(application: Application) : BaseView
     val allNews = appRepository.getAllNews()
 
     val updatedNewsNotifier = MutableLiveData<Boolean>()
+    val updatedNewsNotifierMessage = MutableLiveData<String>()
 
     init {
         appRepository.addNewsListener(this)
@@ -35,6 +36,7 @@ class NewsListViewModel @Inject constructor(application: Application) : BaseView
 
     override fun fetchComplete(success: Boolean, message: String) {
         updatedNewsNotifier.postValue(success)
+        updatedNewsNotifierMessage.postValue(message)
     }
 
 }

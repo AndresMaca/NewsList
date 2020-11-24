@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.andres.maca.newslist.R
 import com.andres.maca.newslist.datalayer.model.NewsItem
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.news_list_fragment.*
 
 class NewsFragment : Fragment(){
@@ -117,6 +118,9 @@ class NewsFragment : Fragment(){
         swipeOnRefreshLayout.setOnRefreshListener { newsListViewModel.updateData() }
         newsListViewModel.updatedNewsNotifier.observe(viewLifecycleOwner, Observer {
             swipeOnRefreshLayout.isRefreshing = false
+        })
+        newsListViewModel.updatedNewsNotifierMessage.observe(viewLifecycleOwner, Observer {message->
+            if(message.isNotEmpty())Snackbar.make(newsListView,message, Snackbar.LENGTH_SHORT).show()
         })
         return newsListView
 
