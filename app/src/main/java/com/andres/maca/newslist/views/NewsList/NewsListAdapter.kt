@@ -34,7 +34,12 @@ class NewsListAdapter(private var newsList : ArrayList<NewsItem>): RecyclerView.
         holder.itemView.setOnClickListener { view->
             Log.d("Adapter", "url: "+currentNew.storyURL)
         }
-
     }
 
+    fun removeItem(position: Int, viewHolder: RecyclerView.ViewHolder): Int {
+        val id = newsList.get(position).storyId
+        newsList.removeAt(position)
+        notifyItemRemoved(position)
+        return id
+    }
 }

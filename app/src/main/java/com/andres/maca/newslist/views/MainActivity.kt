@@ -14,5 +14,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.main_fragment, currentFragment!!).commit()
 
         //TODO: The api is returning several stories with the same title + nothing to do here..
+        //TODO: Empirically the created_by should be the primary key because the API behavior is so
+        //strange...
     }
 }

@@ -5,7 +5,8 @@ import retrofit2.http.GET
 
 interface ApiCloud{
 
-    @GET("search_by_date?query=android") //    @GET("search_by_date?query=android&hitsPerPage=10000")
+    @GET("search_by_date?query=android") //
+       //@GET("search_by_date?query=android&hitsPerPage=10000")
     suspend fun getNews(): NewsItemList
 
 
