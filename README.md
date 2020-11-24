@@ -4,7 +4,11 @@
 ![alt text](https://developer.android.com/topic/libraries/architecture/images/final-architecture.png)
 - It has protection against MITM attacks, but...
 - There's a lot of security issues that can be discussed and for lack of time will not be implemented, IE: emulator detector, integrity detection (to avoid repackaging)
+- Please run the tests to ensure all it's setup correctly. 
+
+- Enviroment: AndroidPlugin:3.5.1 GradleVersion:6.1.1
 
 # ATENTION.
 - The HackerNews API it's a little bit messed they send the ID of the object in diferent keys, and sometimes they send the same story multiples times. With this behavior when you get i.e 10k registers there're maybe only 300 unique Stories, a lot of them are repeated ones.
 I'm printing the output of the response in the console so you can check the download are doing well, but its a MUST to delete this kind of log in a Real-production app.
+
