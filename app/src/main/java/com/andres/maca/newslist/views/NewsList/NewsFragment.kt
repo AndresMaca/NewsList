@@ -1,15 +1,16 @@
 package com.andres.maca.newslist.views.NewsList
 
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,10 +22,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.andres.maca.newslist.R
 import com.andres.maca.newslist.datalayer.model.NewsItem
+import com.andres.maca.newslist.views.NewsList.AdapterListener.ItemTouch
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.news_list_fragment.*
 
-class NewsFragment : Fragment(){
+
+class NewsFragment : Fragment(), ItemTouch{
     private lateinit var newsListViewModel: NewsListViewModel
     private var newsItems = ArrayList<NewsItem>()
     private lateinit var deleteIcon: Drawable
@@ -44,7 +46,7 @@ class NewsFragment : Fragment(){
         val newsListRecyclerView: RecyclerView = newsListView.findViewById(R.id.news_list_recycler_view)
         newsListRecyclerView.layoutManager = LinearLayoutManager(newsListRecyclerView.context)
         newsListRecyclerView.setHasFixedSize(true)
-        val newsListAdapter = NewsListAdapter(newsItems)
+        val newsListAdapter = NewsListAdapter(newsItems, this)
 
         val swipeOnRefreshLayout = newsListView.findViewById<SwipeRefreshLayout>(R.id.swiperefresh)
 
@@ -124,6 +126,16 @@ class NewsFragment : Fragment(){
         })
         return newsListView
 
+    }
+
+    override fun openWebBrowser(url: String) {
+        if(url.isNotEmpty()){
+        val builder = CustomTabsIntent.Builder()
+        val customTabsIntent = builder.build()
+        activity?.let { customTabsIntent.launchUrl(it, Uri.parse(url)) }
+        }else{
+            view?.let { Snackbar.make(it,"Item without URL, API's fault ¯\\_(ツ)_/¯", Snackbar.LENGTH_SHORT).show()}
+        }
     }
 
 }

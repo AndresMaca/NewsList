@@ -9,11 +9,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andres.maca.newslist.R
 import com.andres.maca.newslist.datalayer.model.NewsItem
+import com.andres.maca.newslist.views.NewsList.AdapterListener.ItemTouch
 import kotlinx.android.synthetic.main.news_item.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class NewsListAdapter(private var newsList : ArrayList<NewsItem>): RecyclerView.Adapter<NewsListAdapter.NewListHolder>(){
+class NewsListAdapter(private var newsList : ArrayList<NewsItem>, private  var  itemTouch: ItemTouch): RecyclerView.Adapter<NewsListAdapter.NewListHolder>(){
+
     public class NewListHolder(newListView: View): RecyclerView.ViewHolder(newListView){
         var authorTextView: TextView = newListView.findViewById(R.id.author)
         var createdAtTextView: TextView = newListView.findViewById(R.id.created_at)
@@ -37,7 +39,7 @@ class NewsListAdapter(private var newsList : ArrayList<NewsItem>): RecyclerView.
         holder.createdAtTextView.text = getRelativeTimeSpanString(timeStamp).toString()
         holder.storyTitleTextView.text = currentNew.storyTitle
         holder.itemView.setOnClickListener { view->
-            Log.d("Adapter", "url: "+currentNew.storyURL)
+            itemTouch.openWebBrowser(currentNew.storyURL)
         }
     }
 
