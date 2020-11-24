@@ -60,6 +60,7 @@ class DatabaseTest{
 
         val localHackers = newsDatabaseDao.getAllNews()
         localHackers.observeForever {  }
+        Collections.reverse(hackers)
         assertTrue(localHackers.value == hackers)
     }
     @Test
