@@ -18,6 +18,7 @@ class NewsListViewModel @Inject constructor(application: Application) : BaseView
     val updatedNewsNotifier = MutableLiveData<Boolean>()
 
     init {
+        appRepository.addNewsListener(this)
         appRepository.updateNews()
     }
 

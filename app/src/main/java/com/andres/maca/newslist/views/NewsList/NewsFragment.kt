@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.andres.maca.newslist.R
 import com.andres.maca.newslist.datalayer.model.NewsItem
 import kotlinx.android.synthetic.main.news_list_fragment.*
@@ -43,6 +44,8 @@ class NewsFragment : Fragment(){
         newsListRecyclerView.layoutManager = LinearLayoutManager(newsListRecyclerView.context)
         newsListRecyclerView.setHasFixedSize(true)
         val newsListAdapter = NewsListAdapter(newsItems)
+
+        val swipeOnRefreshLayout = newsListView.findViewById<SwipeRefreshLayout>(R.id.swiperefresh)
 
         newsListRecyclerView.adapter = newsListAdapter
         newsListViewModel.allNews.observe(viewLifecycleOwner, Observer { news ->
@@ -110,6 +113,11 @@ class NewsFragment : Fragment(){
         }
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(newsListRecyclerView)
+
+        swipeOnRefreshLayout.setOnRefreshListener { newsListViewModel.updateData() }
+        newsListViewModel.updatedNewsNotifier.observe(viewLifecycleOwner, Observer {
+            swipeOnRefreshLayout.isRefreshing = false
+        })
         return newsListView
 
     }
